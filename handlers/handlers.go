@@ -18,6 +18,13 @@ var logFile *os.File
 
 func InitLogger() {
     var err error
+    
+    // Создаем папку logs, если её нет
+    err = os.MkdirAll("logs", 0755)
+    if err != nil {
+        log.Fatal("Failed to create logs directory:", err)
+    }
+    
     logFile, err = os.OpenFile("logs/app.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
     if err != nil {
         log.Fatal("Failed to open log file:", err)
